@@ -14,6 +14,9 @@ importers:
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.5.3(typescript@5.5.4))
+      '@vueuse/components':
+        specifier: ^11.0.3
+        version: 11.0.3(vue@3.5.3(typescript@5.5.4))
       '@vueuse/core':
         specifier: ^11.0.3
         version: 11.0.3(vue@3.5.3(typescript@5.5.4))
@@ -35,6 +38,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.10)
+      type-fest:
+        specifier: ^4.26.1
+        version: 4.26.1
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.27.1
@@ -2015,6 +2021,9 @@ packages:
 
   '@vue/shared@3.5.3':
     resolution: {integrity: sha512-Jp2v8nylKBT+PlOUjun2Wp/f++TfJVFjshLzNtJDdmFJabJa7noGMncqXRM1vXGX+Yo2V7WykQFNxusSim8SCA==}
+
+  '@vueuse/components@11.0.3':
+    resolution: {integrity: sha512-/mbv4R1ody3rYz42U14SQ6GkAKHCAHhFIBdR6nKJbEJeFMoiB93dzX0sT2S05CpYCJJgv3JLAwEHeehYqqmbyQ==}
 
   '@vueuse/core@10.11.1':
     resolution: {integrity: sha512-guoy26JQktXPcz+0n3GukWIy/JDNKti9v6VEMu6kV2sYBsWuGiTU8OWdg+ADfUbHg3/3DlqySDe7JmdHrktiww==}
@@ -5143,6 +5152,10 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
+  type-fest@4.26.1:
+    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
+    engines: {node: '>=16'}
+
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -7958,6 +7971,15 @@ snapshots:
       vue: 3.5.3(typescript@5.5.4)
 
   '@vue/shared@3.5.3': {}
+
+  '@vueuse/components@11.0.3(vue@3.5.3(typescript@5.5.4))':
+    dependencies:
+      '@vueuse/core': 11.0.3(vue@3.5.3(typescript@5.5.4))
+      '@vueuse/shared': 11.0.3(vue@3.5.3(typescript@5.5.4))
+      vue-demi: 0.14.10(vue@3.5.3(typescript@5.5.4))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
 
   '@vueuse/core@10.11.1(vue@3.5.3(typescript@5.5.4))':
     dependencies:
@@ -11518,6 +11540,8 @@ snapshots:
   type-fest@0.8.1: {}
 
   type-fest@3.13.1: {}
+
+  type-fest@4.26.1: {}
 
   type-is@1.6.18:
     dependencies:
