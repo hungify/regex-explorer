@@ -14,6 +14,16 @@
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit"
   },
+  "dependencies": {
+    "@radix-icons/vue": "^1.0.0",
+    "@vueuse/core": "^11.0.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.439.0",
+    "radix-vue": "^1.9.5",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.27.1",
     "@iconify-json/carbon": "^1.1.37",
@@ -22,12 +32,13 @@
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.4",
-    "@vite-pwa/nuxt": "^0.10.1",
+    "@vite-pwa/nuxt": "^0.10.5",
     "@vueuse/nuxt": "^11.0.3",
     "consola": "^3.2.3",
     "eslint": "^9.9.1",
     "eslint-plugin-format": "^0.1.2",
-    "nuxt": "^3.13.0",
+    "nuxt": "^3.13.1",
+    "shadcn-nuxt": "^0.10.4",
     "typescript": "^5.5.4",
     "vue-tsc": "^2.0.29"
   },
