@@ -31,6 +31,7 @@
     "@iconify-json/carbon": "^1.1.37",
     "@nuxt/devtools": "^1.4.0",
     "@nuxt/eslint": "^0.5.2",
+    "@nuxt/fonts": "^0.7.2",
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.4",

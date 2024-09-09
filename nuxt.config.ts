@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
+    '@nuxt/fonts',
   ],
 
   shadcn: {
@@ -81,4 +82,16 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-08-14',
+
+  fonts: {
+    google: {
+      families: [
+        {
+          name: 'Source Code Pro',
+          provider: 'google',
+          styles: 'wght@400;500;600;700',
+        },
+      ],
+    },
+  },
 })
