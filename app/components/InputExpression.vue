@@ -2,17 +2,8 @@
 import { Flag, Link, Sparkle } from 'lucide-vue-next'
 import FlagsExpression from './FlagsExpression.vue'
 import RhombusDecorator from './RhombusDecorator.vue'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
-import { Separator } from './ui/separator'
 import type { ExpressionFlags, ExpressionTokens } from '~/types/expression'
 import { EXPRESSION_METADATA } from '~/constants/expression'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
 
 const expressionFlags = ref([])
 
@@ -55,24 +46,24 @@ function handleHoverFlag(flag: ExpressionFlags) {
       }"
     >
       <div class="flex items-center relative flex-grow w-full">
-        <TooltipProvider :delay-duration="100">
-          <Tooltip>
-            <TooltipTrigger as="div">
+        <UiTooltipProvider :delay-duration="100">
+          <UiTooltip>
+            <UiTooltipTrigger as="div">
               <span
                 class="hover:text-green-400 absolute start-0 inset-y-0 flex items-center justify-center px-2 cursor-pointer"
                 @mouseover.prevent="handleHoverToken('/-open')"
               >
                 /
               </span>
-            </TooltipTrigger>
-            <TooltipContent :side-offset="24">
+            </UiTooltipTrigger>
+            <UiTooltipContent :side-offset="24">
               <strong>{{ EXPRESSION_METADATA.tokens[hoveredToken].title }}</strong>
               <p>{{ EXPRESSION_METADATA.tokens[hoveredToken].desc }}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+            </UiTooltipContent>
+          </UiTooltip>
+        </UiTooltipProvider>
 
-        <Input
+        <UiInput
           id="regex"
           v-model="regexPattern"
           placeholder="Insert your expression here"
@@ -81,36 +72,36 @@ function handleHoverFlag(flag: ExpressionFlags) {
         />
 
         <div class="absolute end-0 inset-y-0 flex items-center justify-center gap-2">
-          <TooltipProvider :delay-duration="100">
-            <Tooltip>
-              <TooltipTrigger as="div">
+          <UiTooltipProvider :delay-duration="100">
+            <UiTooltip>
+              <UiTooltipTrigger as="div">
                 <span
                   class="hover:text-green-400 cursor-pointer px-2"
                   @mouseover.prevent="handleHoverToken('/-close')"
                 >
                   /
                 </span>
-              </TooltipTrigger>
-              <TooltipContent :side-offset="14">
+              </UiTooltipTrigger>
+              <UiTooltipContent :side-offset="14">
                 <strong>{{ EXPRESSION_METADATA.tokens[hoveredToken].title }}</strong>
                 <p>{{ EXPRESSION_METADATA.tokens[hoveredToken].desc }}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+              </UiTooltipContent>
+            </UiTooltip>
+          </UiTooltipProvider>
 
-          <Separator orientation="vertical" class="bg-green-400 h-2/3" />
+          <UiSeparator orientation="vertical" class="bg-green-400 h-2/3" />
 
           <FlagsExpression v-model="expressionFlags">
-            <Button
+            <UiButton
               variant="ghost"
               size="xs"
               class="p-0 min-w-8 h-full hover:bg-blue-700/10 space-x-1.5"
             >
-              <TooltipProvider :delay-duration="100">
-                <Tooltip>
-                  <TooltipTrigger as="div">
+              <UiTooltipProvider :delay-duration="100">
+                <UiTooltip>
+                  <UiTooltipTrigger as="div">
                     <template v-if="expressionFlags.length > 0 ">
-                      <Button
+                      <UiButton
                         v-for="flag in expressionFlags"
                         :key="flag"
                         variant="link"
@@ -119,9 +110,9 @@ function handleHoverFlag(flag: ExpressionFlags) {
                         @mouseover.prevent="handleHoverFlag(flag)"
                       >
                         {{ flag }}
-                      </Button>
+                      </UiButton>
                     </template>
-                    <Button
+                    <UiButton
                       v-else
                       variant="link"
                       size="icon"
@@ -129,53 +120,53 @@ function handleHoverFlag(flag: ExpressionFlags) {
                       @mouseover.prevent="handleHoverFlag('empty')"
                     >
                       <Flag class="w-4 h-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <TooltipContent>
+                    </UIButton>
+                  </UiTooltipTrigger>
+                  <UiTooltipContent>
+                    <UiTooltipContent>
                       <strong>{{ EXPRESSION_METADATA.flags[hoveredFlag].title }}</strong>
                       <p>{{ EXPRESSION_METADATA.flags[hoveredFlag].desc }}</p>
-                    </TooltipContent>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </Button>
+                    </UiTooltipContent>
+                  </UiTooltipContent>
+                </UiTooltip>
+              </UiTooltipProvider>
+            </UiButton>
           </FlagsExpression>
 
-          <Separator orientation="vertical" class="bg-green-400 h-2/3" />
+          <UiSeparator orientation="vertical" class="bg-green-400 h-2/3" />
 
-          <TooltipProvider :delay-duration="100">
-            <Tooltip>
-              <TooltipTrigger as="div">
-                <Button
+          <UiTooltipProvider :delay-duration="100">
+            <UiTooltip>
+              <UiTooltipTrigger as="div">
+                <UiButton
                   variant="link"
                   size="icon"
                   class="hover:text-green-400"
                   @mouseover.prevent="handleHoverFlag('empty')"
                 >
                   <Link class="w-4 h-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent :side-offset="14">
+                </UiButton>
+              </UiTooltipTrigger>
+              <UiTooltipContent :side-offset="14">
                 <p>Share your expression</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+              </UiTooltipContent>
+            </UiTooltip>
+          </UiTooltipProvider>
         </div>
       </div>
 
-      <TooltipProvider :delay-duration="100">
-        <Tooltip>
-          <TooltipTrigger>
-            <Button variant="outline" size="icon" class="hover:bg-blue-700/10 hover:text-green-400">
+      <UiTooltipProvider :delay-duration="100">
+        <UiTooltip>
+          <UiTooltipTrigger>
+            <UiButton variant="outline" size="icon" class="hover:bg-blue-700/10 hover:text-green-400">
               <Sparkle class="w-4 h-4" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
+            </UiButton>
+          </UiTooltipTrigger>
+          <UiTooltipContent>
             <p>Visualize your expression</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+          </UiTooltipContent>
+        </UiTooltip>
+      </UiTooltipProvider>
     </RhombusDecorator>
   </div>
 </template>

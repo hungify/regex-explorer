@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import Combobox from './ui/combobox/Combobox.vue'
+interface Props {
+  modelValue: string[]
+}
+
+interface Emits {
+  (event: 'update:modelValue', value: string[]): void
+}
 
 defineProps<Props>()
 defineEmits<Emits>()
@@ -10,13 +16,6 @@ const flagOptions = [
   { value: 's', label: 'Allows . to match newline characters', name: 'single' },
   { value: 'u', label: 'Unicode', name: 'unicode' },
 ]
-interface Props {
-  modelValue: string[]
-}
-
-interface Emits {
-  (event: 'update:modelValue', value: string[]): void
-}
 
 const expressionFlags = defineModel('modelValue', {
   default: [],
@@ -24,11 +23,11 @@ const expressionFlags = defineModel('modelValue', {
 </script>
 
 <template>
-  <Combobox
+  <UiCombobox
     v-model="expressionFlags"
     :options="flagOptions"
     :multiple="true"
   >
     <slot />
-  </Combobox>
+  </UiCombobox>
 </template>

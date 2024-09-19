@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
 type VerticalPosition = 'top' | 'bottom'
 type HorizontalPosition = 'left' | 'right'
 

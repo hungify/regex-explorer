@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import TheLogo from './TheLogo.vue'
 </script>
 
 <template>

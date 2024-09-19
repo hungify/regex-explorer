@@ -1,18 +1,5 @@
 <script setup lang="ts" T extends generic="T extends OptionProps, M extends boolean">
 import { Check } from 'lucide-vue-next'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { cn } from '~/lib/utils'
 
 export interface OptionProps {
@@ -72,17 +59,17 @@ function handleSelect(option: T) {
 </script>
 
 <template>
-  <Popover v-model:open="isOpen">
-    <PopoverTrigger as-child class="cursor-pointer">
+  <UiPopover v-model:open="isOpen">
+    <UiPopoverTrigger as-child class="cursor-pointer">
       <slot />
-    </PopoverTrigger>
-    <PopoverContent class="w-[200px] p-0">
-      <Command>
-        <CommandInput v-if="showSearch" class="h-8" :placeholder="searchPlaceholder" />
-        <CommandEmpty>{{ emptyText }}</CommandEmpty>
-        <CommandList>
-          <CommandGroup>
-            <CommandItem
+    </UiPopoverTrigger>
+    <UiPopoverContent class="w-[200px] p-0">
+      <UiCommand>
+        <UiCommandInput v-if="showSearch" class="h-8" :placeholder="searchPlaceholder" />
+        <UiCommandEmpty>{{ emptyText }}</UiCommandEmpty>
+        <UiCommandList>
+          <UiCommandGroup>
+            <UiCommandItem
               v-for="option in options"
               :key="option.value"
               :value="option.value"
@@ -95,10 +82,10 @@ function handleSelect(option: T) {
                   isSelected(option) ? 'opacity-100' : 'opacity-0',
                 )"
               />
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
-    </PopoverContent>
-  </Popover>
+            </UiCommandItem>
+          </UiCommandGroup>
+        </UiCommandList>
+      </UiCommand>
+    </UiPopoverContent>
+  </UiPopover>
 </template>
