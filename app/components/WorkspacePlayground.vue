@@ -1,23 +1,24 @@
 <script setup lang="ts">
-const tabs = ['Documents', 'Both', 'Canvas']
-const activeTab = ref('Documents')
+const tabs = ['Text', 'Testcases']
+const activeTab = ref('Text')
 </script>
 
 <template>
   <div class="flex w-full justify-center items-center gap-2">
-    <UiTabs default-value="Documents">
+    <UiTabs default-value="account">
       <UiTabsList v-model="activeTab">
         <UiTabsTrigger
-          v-for="tab in tabs"
-          :key="tab"
+          v-for="tab in tabs" :key="tab"
           :value="tab"
-          as="div"
         >
           {{ tab }}
         </UiTabsTrigger>
       </UiTabsList>
-      <UiTabsContent value="Documents">
+      <UiTabsContent value="account">
         Make changes to your account here.
+      </UiTabsContent>
+      <UiTabsContent value="password">
+        Change your password here.
       </UiTabsContent>
     </UiTabs>
   </div>
