@@ -56,7 +56,7 @@ function handleHoverFlag(flag: ExpressionFlags) {
                 /
               </span>
             </UiTooltipTrigger>
-            <UiTooltipContent :side-offset="24">
+            <UiTooltipContent>
               <strong>{{ EXPRESSION_METADATA.tokens[hoveredToken].title }}</strong>
               <p>{{ EXPRESSION_METADATA.tokens[hoveredToken].desc }}</p>
             </UiTooltipContent>
@@ -75,14 +75,16 @@ function handleHoverFlag(flag: ExpressionFlags) {
           <UiTooltipProvider :delay-duration="100">
             <UiTooltip>
               <UiTooltipTrigger as="div">
-                <span
-                  class="hover:text-green-400 cursor-pointer px-2"
+                <UiButton
+                  variant="link"
+                  size="icon"
+                  class="hover:text-green-400 hover:no-underline"
                   @mouseover.prevent="handleHoverToken('/-close')"
                 >
                   /
-                </span>
+                </UiButton>
               </UiTooltipTrigger>
-              <UiTooltipContent :side-offset="14">
+              <UiTooltipContent>
                 <strong>{{ EXPRESSION_METADATA.tokens[hoveredToken].title }}</strong>
                 <p>{{ EXPRESSION_METADATA.tokens[hoveredToken].desc }}</p>
               </UiTooltipContent>
@@ -91,47 +93,39 @@ function handleHoverFlag(flag: ExpressionFlags) {
 
           <UiSeparator orientation="vertical" class="bg-green-400 h-2/3" />
 
-          <FlagsExpression v-model="expressionFlags">
-            <UiButton
-              variant="ghost"
-              size="xs"
-              class="p-0 min-w-8 h-full hover:bg-blue-700/10 space-x-1.5"
-            >
-              <UiTooltipProvider :delay-duration="100">
-                <UiTooltip>
-                  <UiTooltipTrigger as="div">
-                    <template v-if="expressionFlags.length > 0 ">
-                      <UiButton
-                        v-for="flag in expressionFlags"
-                        :key="flag"
-                        variant="link"
-                        size="xs"
-                        class="hover:text-green-400 p-1"
-                        @mouseover.prevent="handleHoverFlag(flag)"
-                      >
-                        {{ flag }}
-                      </UiButton>
-                    </template>
+          <div class="p-0 min-w-8 space-x-1.5">
+            <UiTooltipProvider :delay-duration="100">
+              <UiTooltip>
+                <UiTooltipTrigger as="div">
+                  <FlagsExpression v-model="expressionFlags">
                     <UiButton
-                      v-else
+                      v-for="flag in expressionFlags.length > 0 ? expressionFlags : ['empty']"
+                      :key="flag"
                       variant="link"
-                      size="icon"
+                      :size="flag !== 'empty' ? 'sm' : 'icon'"
                       class="hover:text-green-400"
-                      @mouseover.prevent="handleHoverFlag('empty')"
+                      :class="{
+                        'p-1': flag !== 'empty',
+                        'w-full': expressionFlags.length === 1,
+                      }"
+                      @mouseover.prevent="handleHoverFlag(flag as ExpressionFlags)"
                     >
-                      <Flag class="w-4 h-4" />
-                    </UIButton>
-                  </UiTooltipTrigger>
+                      <template v-if="flag !== 'empty'">
+                        {{ flag }}
+                      </template>
+                      <Flag v-else class="w-4 h-4" />
+                    </UiButton>
+                  </FlagsExpression>
+                </UiTooltipTrigger>
+                <UiTooltipContent>
                   <UiTooltipContent>
-                    <UiTooltipContent>
-                      <strong>{{ EXPRESSION_METADATA.flags[hoveredFlag].title }}</strong>
-                      <p>{{ EXPRESSION_METADATA.flags[hoveredFlag].desc }}</p>
-                    </UiTooltipContent>
+                    <strong>{{ EXPRESSION_METADATA.flags[hoveredFlag].title }}</strong>
+                    <p>{{ EXPRESSION_METADATA.flags[hoveredFlag].desc }}</p>
                   </UiTooltipContent>
-                </UiTooltip>
-              </UiTooltipProvider>
-            </UiButton>
-          </FlagsExpression>
+                </UiTooltipContent>
+              </UiTooltip>
+            </UiTooltipProvider>
+          </div>
 
           <UiSeparator orientation="vertical" class="bg-green-400 h-2/3" />
 
@@ -147,7 +141,7 @@ function handleHoverFlag(flag: ExpressionFlags) {
                   <Link class="w-4 h-4" />
                 </UiButton>
               </UiTooltipTrigger>
-              <UiTooltipContent :side-offset="14">
+              <UiTooltipContent>
                 <p>Share your expression</p>
               </UiTooltipContent>
             </UiTooltip>
@@ -157,7 +151,7 @@ function handleHoverFlag(flag: ExpressionFlags) {
 
       <UiTooltipProvider :delay-duration="100">
         <UiTooltip>
-          <UiTooltipTrigger>
+          <UiTooltipTrigger as="div">
             <UiButton variant="outline" size="icon" class="hover:bg-blue-700/10 hover:text-green-400">
               <Sparkle class="w-4 h-4" />
             </UiButton>
