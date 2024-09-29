@@ -9,19 +9,19 @@ const expressionFlags = ref([])
 
 const hoveredToken = ref<ExpressionTokens>('/-open')
 const hoveredFlag = ref<ExpressionFlags>('empty')
-const regexPattern = ref('')
+const { patternRegex, isValidPattern } = useExpression()
 
 function handlePasteExpression(event: ClipboardEvent) {
   event.preventDefault()
   const plainText = event.clipboardData?.getData('text/plain')
   if (plainText) {
-    if (regexPattern.value.length === 0) {
+    if (patternRegex.value.length === 0) {
       // remove '/' in start and end of the expression
       const strippedExpression = plainText.replace(/^\/|\/$/g, '')
-      regexPattern.value = strippedExpression
+      patternRegex.value = strippedExpression
     }
     else {
-      regexPattern.value += plainText
+      patternRegex.value += plainText
     }
   }
 }
@@ -65,9 +65,12 @@ function handleHoverFlag(flag: ExpressionFlags) {
 
         <UiInput
           id="regex"
-          v-model="regexPattern"
+          v-model="patternRegex"
           placeholder="Insert your expression here"
           class="pl-8 pr-36 w-full focus-visible:ring-[0.1px] focus-visible:ring-green-600 focus-visible:ring-offset-2"
+          :class="{
+            'border-red-400': !isValidPattern,
+          }"
           @paste="handlePasteExpression"
         />
 
