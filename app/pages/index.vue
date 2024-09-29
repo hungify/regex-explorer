@@ -9,7 +9,7 @@ useHead({
 <template>
   <div class="h-full flex flex-col">
     <div class="w-full p-2 flex items-center justify-center gap-2 border-b border-blue-200/80 dark:border-blue-300/10 border-dashed bg-gradient-to-r from-transparent via-blue-100/40 to-transparent  dark:from-transparent dark:via-blue-600/10 dark:to-transparent text-sm text-accent-blue dark:text-blue-100 transition-colors fv-style sticky top-0">
-      <InputExpression />
+      <ToolbarExpression />
     </div>
     <div class="relative w-full p-2 flex justify-center gap-2 border-b border-blue-200/80 dark:border-blue-300/10 border-dashed bg-gradient-to-r from-transparent via-blue-100/40 to-transparent  dark:from-transparent dark:via-blue-600/10 dark:to-transparent text-sm text-accent-blue dark:text-blue-100 transition-colors fv-style items-stretch h-full">
       <PlaygroundExpression />
