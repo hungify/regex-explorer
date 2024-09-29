@@ -61,3 +61,5 @@ export const EXPRESSION_METADATA = {
   flags: Record<ExpressionFlags, { title: string, desc: string }>
   tokens: Record<ExpressionTokens, { title: string, desc: string }>
 }
+
+export const DEFAULT_TEST_STRING = 'This is a test document. \nIt contains words, numbers like 12345, and special symbols: !@#$. \nSome words are Capitalized, and some are not.\nHere are some dates: 2023-09-28, 2024-01-01.'
