@@ -1,5 +1,4 @@
-import type { DecorationSet, EditorView, ViewUpdate } from '@codemirror/view'
-import { Decoration, ViewPlugin, WidgetType } from '@codemirror/view'
+import { Decoration, type DecorationSet, type EditorView, ViewPlugin, type ViewUpdate, WidgetType } from '@codemirror/view'
 
 class NewlineWidget extends WidgetType {
   toDOM() {
@@ -10,7 +9,7 @@ class NewlineWidget extends WidgetType {
   }
 }
 
-function highlightNewLine() {
+export function highlightNewLine() {
   return ViewPlugin.fromClass(
     class {
       decorations: DecorationSet
@@ -46,5 +45,3 @@ function highlightNewLine() {
     },
   )
 }
-
-export { highlightNewLine }
