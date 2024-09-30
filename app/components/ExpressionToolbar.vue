@@ -5,23 +5,21 @@ import RhombusDecorator from './RhombusDecorator.vue'
 import type { ExpressionFlags, ExpressionTokens } from '~/types/expression'
 import { EXPRESSION_METADATA } from '~/constants/expression'
 
-const expressionFlags = ref([])
-
 const hoveredToken = ref<ExpressionTokens>('/-open')
 const hoveredFlag = ref<ExpressionFlags>('empty')
-const { patternRegex, isValidPattern } = useExpression()
+const { pattern, isValidPattern, flags } = useExpression()
 
 function handlePasteExpression(event: ClipboardEvent) {
   event.preventDefault()
   const plainText = event.clipboardData?.getData('text/plain')
   if (plainText) {
-    if (patternRegex.value.length === 0) {
+    if (pattern.value.length === 0) {
       // remove '/' in start and end of the expression
       const strippedExpression = plainText.replace(/^\/|\/$/g, '')
-      patternRegex.value = strippedExpression
+      pattern.value = strippedExpression
     }
     else {
-      patternRegex.value += plainText
+      pattern.value += plainText
     }
   }
 }
@@ -45,12 +43,12 @@ function handleHoverFlag(flag: ExpressionFlags) {
         bottomRight: true,
       }"
     >
-      <div class="flex items-center relative flex-grow w-full">
+      <div class="relative flex w-full grow items-center">
         <UiTooltipProvider :delay-duration="100">
           <UiTooltip>
             <UiTooltipTrigger as="div">
               <span
-                class="hover:text-green-400 absolute start-0 inset-y-0 flex items-center justify-center px-2 cursor-pointer"
+                class="absolute inset-y-0 start-0 flex cursor-pointer items-center justify-center px-2 hover:text-green-400"
                 @mouseover.prevent="handleHoverToken('/-open')"
               >
                 /
@@ -65,16 +63,16 @@ function handleHoverFlag(flag: ExpressionFlags) {
 
         <UiInput
           id="regex"
-          v-model="patternRegex"
+          v-model="pattern"
           placeholder="Insert your expression here"
-          class="pl-8 pr-36 w-full focus-visible:ring-[0.1px] focus-visible:ring-green-600 focus-visible:ring-offset-2"
+          class="w-full pl-8 pr-36 focus-visible:ring-[0.1px] focus-visible:ring-green-600 focus-visible:ring-offset-2"
           :class="{
             'border-red-400': !isValidPattern,
           }"
           @paste="handlePasteExpression"
         />
 
-        <div class="absolute end-0 inset-y-0 flex items-center justify-center gap-2">
+        <div class="absolute inset-y-0 end-0 flex items-center justify-center gap-2">
           <UiTooltipProvider :delay-duration="100">
             <UiTooltip>
               <UiTooltipTrigger as="div">
@@ -94,29 +92,29 @@ function handleHoverFlag(flag: ExpressionFlags) {
             </UiTooltip>
           </UiTooltipProvider>
 
-          <UiSeparator orientation="vertical" class="bg-green-400 h-2/3" />
+          <UiSeparator orientation="vertical" class="h-2/3 bg-green-400" />
 
-          <div class="p-0 min-w-8 space-x-1.5">
+          <div class="min-w-8 space-x-1.5 p-0">
             <UiTooltipProvider :delay-duration="100">
               <UiTooltip>
                 <UiTooltipTrigger as="div">
-                  <FlagsExpression v-model="expressionFlags">
+                  <FlagsExpression v-model="flags">
                     <UiButton
-                      v-for="flag in expressionFlags.length > 0 ? expressionFlags : ['empty']"
+                      v-for="flag in flags.length > 0 ? flags : ['empty']"
                       :key="flag"
                       variant="link"
                       :size="flag !== 'empty' ? 'sm' : 'icon'"
                       class="hover:text-green-400"
                       :class="{
                         'p-1': flag !== 'empty',
-                        'w-full': expressionFlags.length === 1,
+                        'w-full': flags.length === 1,
                       }"
                       @mouseover.prevent="handleHoverFlag(flag as ExpressionFlags)"
                     >
                       <template v-if="flag !== 'empty'">
                         {{ flag }}
                       </template>
-                      <Flag v-else class="w-4 h-4" />
+                      <Flag v-else class="size-4" />
                     </UiButton>
                   </FlagsExpression>
                 </UiTooltipTrigger>
@@ -130,7 +128,7 @@ function handleHoverFlag(flag: ExpressionFlags) {
             </UiTooltipProvider>
           </div>
 
-          <UiSeparator orientation="vertical" class="bg-green-400 h-2/3" />
+          <UiSeparator orientation="vertical" class="h-2/3 bg-green-400" />
 
           <UiTooltipProvider :delay-duration="100">
             <UiTooltip>
@@ -141,7 +139,7 @@ function handleHoverFlag(flag: ExpressionFlags) {
                   class="hover:text-green-400"
                   @mouseover.prevent="handleHoverFlag('empty')"
                 >
-                  <Link class="w-4 h-4" />
+                  <Link class="size-4" />
                 </UiButton>
               </UiTooltipTrigger>
               <UiTooltipContent>
@@ -156,7 +154,7 @@ function handleHoverFlag(flag: ExpressionFlags) {
         <UiTooltip>
           <UiTooltipTrigger as="div">
             <UiButton variant="outline" size="icon" class="hover:bg-blue-700/10 hover:text-green-400">
-              <Sparkle class="w-4 h-4" />
+              <Sparkle class="size-4" />
             </UiButton>
           </UiTooltipTrigger>
           <UiTooltipContent>
