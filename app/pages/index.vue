@@ -7,12 +7,12 @@ useHead({
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
-    <div class="w-full p-2 flex items-center justify-center gap-2 border-b border-blue-200/80 dark:border-blue-300/10 border-dashed bg-gradient-to-r from-transparent via-blue-100/40 to-transparent  dark:from-transparent dark:via-blue-600/10 dark:to-transparent text-sm text-accent-blue dark:text-blue-100 transition-colors fv-style sticky top-0">
+  <div class="flex h-full flex-col">
+    <div class="sticky top-0 flex w-full items-center justify-center gap-2 border-b border-dashed border-blue-200/80 bg-gradient-to-r from-transparent via-blue-100/40 to-transparent p-2 text-sm transition-colors dark:border-blue-300/10 dark:from-transparent dark:via-blue-600/10 dark:to-transparent dark:text-blue-100">
       <ExpressionToolbar />
     </div>
-    <div class="relative w-full p-2 flex justify-center gap-2 border-b border-blue-200/80 dark:border-blue-300/10 border-dashed bg-gradient-to-r from-transparent via-blue-100/40 to-transparent  dark:from-transparent dark:via-blue-600/10 dark:to-transparent text-sm text-accent-blue dark:text-blue-100 transition-colors fv-style items-stretch h-full">
-      <PlaygroundExpression />
+    <div class="relative flex size-full items-stretch justify-center gap-2 border-b border-dashed border-blue-200/80 bg-gradient-to-r from-transparent via-blue-100/40  to-transparent p-2 text-sm transition-colors dark:border-blue-300/10 dark:from-transparent dark:via-blue-600/10 dark:to-transparent dark:text-blue-100">
+      <ExpressionPlayground />
     </div>
   </div>
 </template>
