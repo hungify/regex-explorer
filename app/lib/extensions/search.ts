@@ -11,7 +11,7 @@ const searchHighlightDecoration = Decoration.mark({
   attributes: { title: 'Matched string' },
 })
 
-const highlightSearchRegex = StateField.define<DecorationSet>({
+export const highlightSearchRegex = StateField.define<DecorationSet>({
   create() {
     return Decoration.none
   },
@@ -20,21 +20,21 @@ const highlightSearchRegex = StateField.define<DecorationSet>({
 
     for (const effect of transaction.effects) {
       if (effect.is(searchHighlightEffect)) {
-        const { expression } = effect.value // Get the new regex
-
         const builder = new RangeSetBuilder<Decoration>()
-        const { doc } = transaction.state
 
+        const { expression } = effect.value
+        const { doc } = transaction.state
         const stringMatcherCursor = new RegExpCursor(doc, expression)
 
-        for (const match of stringMatcherCursor) {
-          const { from, to } = match
-          builder.add(from, to, searchHighlightDecoration)
+        for (const matcher of stringMatcherCursor) {
+          const { from, to, match } = matcher
+          if (match[0])
+
+            builder.add(from, to, searchHighlightDecoration)
         }
         value = builder.finish()
       }
     }
-
     return value
   },
   provide: field => EditorView.decorations.from(field),
