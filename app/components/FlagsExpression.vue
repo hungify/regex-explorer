@@ -18,7 +18,7 @@ const flagOptions = [
 ]
 
 const expressionFlags = defineModel('modelValue', {
-  default: [],
+  default: [] as string[],
 })
 </script>
 
