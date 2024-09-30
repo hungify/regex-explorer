@@ -4,7 +4,6 @@ import type { Extension } from '@codemirror/state'
 import type { EditorView } from '@codemirror/view'
 import { highlightWhitespace, keymap } from '@codemirror/view'
 import CodeMirror from 'vue-codemirror6'
-import { DEFAULT_TEST_STRING } from '~/constants/expression'
 import { highlightNewLine } from '~/lib/extensions/new-line'
 import { createSearchHighlighter } from '~/lib/extensions/search'
 
@@ -12,18 +11,17 @@ interface CMInstance {
   view: EditorView
 }
 
-const input = ref(DEFAULT_TEST_STRING)
 const cmInstance = ref<CMInstance | null>(null)
 
-const { patternRegex, isValidPattern } = useExpression()
+const { pattern, isValidPattern, source } = useExpression()
 const { searchMatches, highlightSearchRegex } = createSearchHighlighter()
 
 watchEffect(() => {
   if (!cmInstance.value)
     return
 
-  const pattern = isValidPattern.value ? patternRegex.value : ''
-  searchMatches(cmInstance.value.view as EditorView, pattern)
+  const inputPattern = isValidPattern.value ? pattern.value : ''
+  searchMatches(cmInstance.value.view as EditorView, inputPattern)
 })
 
 const extensions: Extension[] = [
@@ -38,19 +36,18 @@ const extensions: Extension[] = [
 </script>
 
 <template>
-  <div class="w-full gap-1.5 h-full p-2">
+  <div class="size-full gap-1.5 p-2">
     <ClientOnly fallback-tag="span">
       <CodeMirror
         ref="cmInstance"
-        v-model="input" class="flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-full font-sans"
+        v-model="source"
+        class="flex size-full min-h-20 rounded-md border border-input bg-background px-3 py-2 font-sans text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         placeholder="Insert your test string here"
-        :extensions
-        wrap
-        spellcheck="false"
+        :extensions wrap spellcheck="false"
       />
 
       <template #fallback>
-        <p class="dark:text-blue-100/50 transition-colors">
+        <p class="transition-colors dark:text-blue-100/50">
           Loading input...
         </p>
       </template>
