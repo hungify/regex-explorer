@@ -7,7 +7,7 @@ import InputTestcases from './InputTestcases.vue'
 
 const layouts = [
   {
-    label: 'Test String',
+    label: 'Match String',
     swapySlot: 'string',
     component: InputMatchString,
     class: 'col-start-1 col-end-3',
@@ -33,6 +33,7 @@ const layouts = [
 ]
 
 const container = useTemplateRef<HTMLDivElement>('container')
+const { matchers } = useExpression()
 
 onMounted(() => {
   if (container.value) {
@@ -42,15 +43,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="container" class="grid grid-cols-4 grid-rows-2 gap-4 w-full">
-    <div v-for="item in layouts" :key="item.label" :class="item.class" :data-swapy-slot="item.swapySlot" class=" border-dashed border-[1px] rounded-lg h-full w-full">
+  <div ref="container" class="grid w-full grid-cols-4 grid-rows-2 gap-4">
+    <div v-for="item in layouts" :key="item.swapySlot" :class="item.class" :data-swapy-slot="item.swapySlot" class=" size-full rounded-lg border border-dashed">
       <div
-        class="dark:bg-blue-600/10  rounded-lg h-full" :data-swapy-item="item.swapySlot"
+        class="h-full  rounded-lg dark:bg-blue-600/10" :data-swapy-item="item.swapySlot"
       >
-        <div class="flex flex-col w-full h-full">
-          <div data-swapy-handle class="hover:cursor-grab p-2">
-            <UiLabel :for="item.label">
+        <div class="flex size-full flex-col">
+          <div data-swapy-handle class="p-2 hover:cursor-grab">
+            <UiLabel :for="item.swapySlot">
               {{ item.label }}
+              <span
+                v-if="item.swapySlot === 'string' && matchers"
+                class="rounded-md bg-blue-600/10 px-2 py-1 text-xs opacity-55 dark:bg-blue-600/20"
+              >
+                {{ matchers.length }} matches
+              </span>
             </UiLabel>
           </div>
 
