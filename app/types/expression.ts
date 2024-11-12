@@ -6,7 +6,7 @@ export type ExpressionTokens = ExpressionTokenBasic
 export type PatternKeys = 'allTokens' | 'commonTokens' | 'generalTokens' | 'anchors' | 'metaSequences' | 'quantifiers' | 'groupConstructs' | 'characterClasses' |
   'flagsModifiers' | 'substitution'
 
-interface TokenEntry {
+export interface TokenEntry {
   label: string
   token: string
   explanation: string
