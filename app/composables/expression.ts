@@ -2,14 +2,15 @@ import {
   RegExpParser,
   RegExpValidator,
 } from '@eslint-community/regexpp'
-import { DEFAULT_PATTERN, DEFAULT_TEST_STRING } from '~/constants/expression'
+import { DEFAULT_TEST_STRING } from '~/constants/expression'
 
 const validator = new RegExpValidator()
 
 export function useExpression() {
   const flags = useState<string[]>('flags', () => ['g'])
-  const pattern = useState<string>('expession', () => DEFAULT_PATTERN)
+  const pattern = useState<string>('expession', () => '')
   const source = useState<string>('source', () => DEFAULT_TEST_STRING)
+  const error = useState<string>('error', () => '')
 
   const hasGlobalFlag = computed(() => flags.value.includes('g'))
 
@@ -26,8 +27,8 @@ export function useExpression() {
       validator.validateLiteral(expressionString.value)
       return true
     }
-    // eslint-disable-next-line unused-imports/no-unused-vars
     catch (e) {
+      error.value = e.message
       return false
     }
   })
@@ -73,5 +74,6 @@ export function useExpression() {
     expressionString,
     hasGlobalFlag,
     expressionRegExp,
+    error,
   }
 }
