@@ -30,10 +30,11 @@ const layouts = [
     component: ExplanationExpression,
     class: 'col-start-3 col-end-5',
   },
-]
+] as const
 
 const container = useTemplateRef<HTMLDivElement>('container')
 const { matchers } = useExpression()
+const { failedTestCases } = useTestcase()
 
 onMounted(() => {
   if (container.value) {
@@ -58,6 +59,15 @@ onMounted(() => {
               >
                 {{ matchers.length }} matches
               </span>
+
+              <template v-else-if="item.swapySlot === 'testcases'">
+                <span v-if="failedTestCases.length > 0" class="rounded-md bg-red-600/10 px-2 py-1 text-xs text-red-500 opacity-55 dark:bg-red-600/20">
+                  {{ failedTestCases.length }} test cases failed
+                </span>
+                <span v-else class="rounded-md bg-green-600/10 px-2 py-1 text-xs text-green-500 opacity-55 dark:bg-green-600/20">
+                  All test cases passed
+                </span>
+              </template>
             </UiLabel>
           </div>
 
