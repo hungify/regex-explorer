@@ -2,13 +2,13 @@ import {
   RegExpParser,
   RegExpValidator,
 } from '@eslint-community/regexpp'
-import { DEFAULT_TEST_STRING } from '~/constants/expression'
+import { DEFAULT_PATTERN, DEFAULT_TEST_STRING } from '~/constants/expression'
 
 const validator = new RegExpValidator()
 
 export function useExpression() {
   const flags = useState<string[]>('flags', () => ['g'])
-  const pattern = useState<string>('expession', () => '')
+  const pattern = useState<string>('expession', () => DEFAULT_PATTERN)
   const source = useState<string>('source', () => DEFAULT_TEST_STRING)
   const error = useState<string>('error', () => '')
 
@@ -28,7 +28,9 @@ export function useExpression() {
       return true
     }
     catch (e) {
-      error.value = e.message
+      if (e instanceof SyntaxError) {
+        error.value = e.message
+      }
       return false
     }
   })

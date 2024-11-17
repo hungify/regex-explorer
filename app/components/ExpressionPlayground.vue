@@ -33,8 +33,10 @@ const layouts = [
 ] as const
 
 const container = useTemplateRef<HTMLDivElement>('container')
-const { matchers } = useExpression()
-const { failedTestCases } = useTestcase()
+const { matchers, isValidExpression } = useExpression()
+const { failedTestCases, testcases } = useTestcase()
+
+const isEmptyTestcases = computed(() => testcases.value.length === 0)
 
 onMounted(() => {
   if (container.value) {
@@ -60,7 +62,7 @@ onMounted(() => {
                 {{ matchers.length }} matches
               </span>
 
-              <template v-else-if="item.swapySlot === 'testcases'">
+              <template v-else-if="item.swapySlot === 'testcases' && !isEmptyTestcases && isValidExpression">
                 <span v-if="failedTestCases.length > 0" class="rounded-md bg-red-600/10 px-2 py-1 text-xs text-red-500 opacity-55 dark:bg-red-600/20">
                   {{ failedTestCases.length }} test cases failed
                 </span>

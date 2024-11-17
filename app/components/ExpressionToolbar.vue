@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Flag, Link, Sparkle } from 'lucide-vue-next'
+import { Flag, Link, Sparkle, TriangleAlert } from 'lucide-vue-next'
 import FlagsExpression from './FlagsExpression.vue'
 import RhombusDecorator from './RhombusDecorator.vue'
 import type { ExpressionFlags, ExpressionTokens } from '~/types/expression'
@@ -7,7 +7,7 @@ import { EXPRESSION_METADATA } from '~/constants/expression'
 
 const hoveredToken = ref<ExpressionTokens>('/-open')
 const hoveredFlag = ref<ExpressionFlags>('empty')
-const { pattern, isValidPattern, flags } = useExpression()
+const { pattern, isValidPattern, flags, error } = useExpression()
 
 function handlePasteExpression(event: ClipboardEvent) {
   event.preventDefault()
@@ -136,14 +136,20 @@ function handleHoverFlag(flag: ExpressionFlags) {
                 <UiButton
                   variant="link"
                   size="icon"
-                  class="hover:text-green-400"
-                  @mouseover.prevent="handleHoverFlag('empty')"
+                  :class="{
+                    'hover:text-green-400': isValidPattern,
+                    'text-red-500': !isValidPattern,
+                    'hover:text-red-300': !isValidPattern,
+                  }"
                 >
-                  <Link class="size-4" />
+                  <Link v-if="isValidPattern" class="size-4" />
+                  <TriangleAlert v-else class="size-4" />
                 </UiButton>
               </UiTooltipTrigger>
               <UiTooltipContent>
-                <p>Share your expression</p>
+                <p>
+                  {{ isValidPattern ? 'Share your expression' : error }}
+                </p>
               </UiTooltipContent>
             </UiTooltip>
           </UiTooltipProvider>
