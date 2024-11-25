@@ -47,7 +47,7 @@ onMounted(() => {
 
 <template>
   <div ref="container" class="grid w-full grid-cols-4 grid-rows-2 gap-4">
-    <div v-for="item in layouts" :key="item.swapySlot" :class="item.class" :data-swapy-slot="item.swapySlot" class=" size-full rounded-lg border border-dashed">
+    <!-- <div v-for="item in layouts" :key="item.swapySlot" :class="item.class" :data-swapy-slot="item.swapySlot" class=" size-full rounded-lg border border-dashed">
       <div
         class="h-full  rounded-lg dark:bg-blue-600/10" :data-swapy-item="item.swapySlot"
       >
@@ -77,6 +77,7 @@ onMounted(() => {
           <Component :is="item.component" />
         </div>
       </div>
-    </div>
+    </div> -->
+    <GraphExpression />
   </div>
 </template>
